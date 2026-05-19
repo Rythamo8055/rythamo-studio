@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- Design: The organic flowing curve -->
+  <circle cx="42" cy="50" r="22" stroke="#00272B" stroke-width="7" stroke-linecap="round"/>
+  <!-- Engineering: The sharp grid square -->
+  <rect x="44" y="36" width="28" height="28" rx="4" stroke="#E0FF4F" stroke-width="7" stroke-linejoin="round" fill="none"/>
+  <!-- Dark structural reinforcement border over neon -->
+  <rect x="44" y="36" width="28" height="28" rx="4" stroke="#00272B" stroke-width="7" stroke-linejoin="round" stroke-dasharray="12 12" fill="none"/>
+  <!-- The intersecting core dot -->
+  <circle cx="50" cy="50" r="4.5" fill="#E0FF4F" stroke="#00272B" stroke-width="2"/>
+</svg>
