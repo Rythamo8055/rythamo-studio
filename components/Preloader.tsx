@@ -55,10 +55,11 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     // 2. Timeline Orchestration
     const tl = gsap.timeline({
       onComplete: () => {
-        // Dynamic exit animation: Dramatic slide-up reveal
+        // Dynamic exit animation: Dramatic slide-up + fade reveal
         gsap.to(containerRef.current, {
           yPercent: -100,
-          duration: 1.2,
+          opacity: 0,
+          duration: 1.0,
           ease: 'power4.inOut',
           onComplete: onComplete,
         });
@@ -69,7 +70,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     const counterObj = { val: 0 };
     tl.to(counterObj, {
       val: 100,
-      duration: 2.4,
+      duration: 2.2,
       ease: 'power2.out',
       onUpdate: () => {
         setProgress(Math.floor(counterObj.val));
@@ -79,78 +80,71 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     // Draw the Organic circle path
     tl.to(circle, {
       strokeDashoffset: 0,
-      duration: 1.2,
+      duration: 1.0,
       ease: 'power2.inOut',
     }, 0.2);
 
     // Draw the Tech square path
     tl.to(square, {
       strokeDashoffset: 0,
-      duration: 1.2,
+      duration: 1.0,
       ease: 'power2.inOut',
-    }, 0.5);
+    }, 0.4);
 
     // Fade in and rotate the dashed structural guide
     tl.to(dash, {
       strokeDashoffset: 0,
-      opacity: 0.4,
+      opacity: 0.3,
       rotation: 0,
-      duration: 1.0,
+      duration: 0.8,
       ease: 'back.out(1.5)',
-    }, 0.9);
+    }, 0.8);
 
     // Elastic pop for the core intersecting dot
     tl.to(dot, {
       scale: 1,
-      duration: 0.8,
+      duration: 0.7,
       ease: 'elastic.out(1, 0.6)',
-    }, 1.2);
+    }, 1.1);
 
     // Text letter spacing expand and fade-in
     tl.to(textRef.current, {
       opacity: 1,
       letterSpacing: '0.4em',
       y: 0,
-      duration: 1.0,
+      duration: 0.8,
       ease: 'power3.out',
-    }, 1.3);
+    }, 1.2);
 
   }, [onComplete]);
 
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#00272B] select-none overflow-hidden"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white select-none overflow-hidden"
     >
-      {/* Blueprint grid subtle background decoration */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:30px_30px] pointer-events-none" />
-      
-      {/* Decorative radial brand glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#E0FF4F]/5 blur-3xl pointer-events-none" />
-
       <div className="relative flex flex-col items-center z-10">
         
-        {/* Core Animated Vector SVG Logo */}
+        {/* Core Animated Vector SVG Logo (Exact original color configurations) */}
         <svg
           width="120"
           height="120"
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="filter drop-shadow-[0_10px_20px_rgba(224,255,79,0.05)]"
         >
-          {/* Design: Organic flowing circle */}
+          {/* Design: Organic flowing circle in Midnight Forest */}
           <circle
             ref={logoCircleRef}
             cx="42"
             cy="50"
             r="22"
-            stroke="#FFFFFF"
+            stroke="#00272B"
             strokeWidth="7"
             strokeLinecap="round"
           />
           
-          {/* Engineering: The sharp tech square */}
+          {/* Engineering: The sharp tech square in Neon Lime */}
           <rect
             ref={logoSquareRef}
             x="44"
@@ -163,7 +157,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
             strokeLinejoin="round"
           />
           
-          {/* Structure: Dash boundary */}
+          {/* Structure: Dash boundary in Midnight Forest */}
           <rect
             ref={logoDashRef}
             x="44"
@@ -171,10 +165,10 @@ export default function Preloader({ onComplete }: PreloaderProps) {
             width="28"
             height="28"
             rx="4"
-            stroke="#FFFFFF"
+            stroke="#00272B"
             strokeWidth="7"
             strokeLinejoin="round"
-            strokeDasharray="10 10"
+            strokeDasharray="12 12"
           />
           
           {/* Intersection Core Dot */}
@@ -193,16 +187,16 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         <div
           ref={textRef}
           style={{ opacity: 0, transform: 'translateY(15px)' }}
-          className="mt-6 font-heading font-black text-base text-white tracking-[0.25em] uppercase flex items-center"
+          className="mt-6 font-heading font-black text-base text-[#00272B] tracking-[0.25em] uppercase flex items-center"
         >
           <span>RYTHAMO</span>
-          <span className="text-[#E0FF4F] font-light ml-2">STUDIO</span>
+          <span className="text-[#E0FF4F] font-bold ml-2">STUDIO</span>
         </div>
 
         {/* Incrementing percentage indicator */}
-        <div className="mt-8 font-mono text-[10px] text-white/40 tracking-[0.3em] uppercase flex items-center gap-2">
+        <div className="mt-8 font-mono text-[10px] text-[#00272B]/40 tracking-[0.3em] uppercase flex items-center gap-2">
           <span>CREATING</span>
-          <span className="text-white font-bold w-8 text-right text-[#E0FF4F]">
+          <span className="font-bold w-8 text-right text-[#00272B]">
             {progress}%
           </span>
         </div>
