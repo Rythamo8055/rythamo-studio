@@ -5,11 +5,24 @@ import Image from 'next/image';
 import Cubes from '../components/Cubes/Cubes';
 import MagnetLines from '../components/MagnetLines/MagnetLines';
 import { Marquee } from '../components/ui/marquee';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function PremiumFreelanceLandingPage() {
   const [activeTab, setActiveTab] = useState('all');
   const [scrollProgress, setScrollProgress] = useState(0);
   const [aboutScrollProgress, setAboutScrollProgress] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
   
   const contactContainerRef = useRef<HTMLDivElement>(null);
   const aboutContainerRef = useRef<HTMLDivElement>(null);
@@ -149,14 +162,129 @@ export default function PremiumFreelanceLandingPage() {
           </a>
         </nav>
         
-        {/* Right Side: High-Impact Neon Lime CTA */}
-        <a 
-          href="#contact" 
-          className="px-5 py-2.5 rounded-xl bg-[#E0FF4F] text-[#00272B] hover:bg-white hover:scale-[1.02] transition-all duration-300 font-mono text-xs uppercase tracking-wider font-extrabold shadow-lg"
-        >
-          Start A Project
-        </a>
+        {/* Right Side: Responsive CTA and Mobile Toggle Container */}
+        <div className="flex items-center gap-2">
+          {/* High-Impact Neon Lime CTA (Hidden on tiny phones to prevent wrap squishing) */}
+          <a 
+            href="#contact" 
+            className="hidden sm:inline-block px-5 py-2.5 rounded-xl bg-[#E0FF4F] text-[#00272B] hover:bg-white hover:scale-[1.02] transition-all duration-300 font-mono text-xs uppercase tracking-wider font-extrabold shadow-lg"
+          >
+            Start A Project
+          </a>
+
+          {/* Premium Hamburger Toggle Button (mobile-only) */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:text-[#E0FF4F] transition-all duration-300 z-50 relative"
+            aria-label="Toggle Menu"
+          >
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <motion.line
+                x1="3"
+                y1="5"
+                x2="15"
+                y2="5"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                style={{ transformOrigin: "center" }}
+                animate={isMobileMenuOpen ? { rotate: 45, y: 4 } : { rotate: 0, y: 0 }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+              />
+              <motion.line
+                x1="3"
+                y1="9"
+                x2="15"
+                y2="9"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                style={{ transformOrigin: "center" }}
+                animate={isMobileMenuOpen ? { opacity: 0, scale: 0.5 } : { opacity: 1, scale: 1 }}
+                transition={{ duration: 0.15 }}
+              />
+              <motion.line
+                x1="3"
+                y1="13"
+                x2="15"
+                y2="13"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                style={{ transformOrigin: "center" }}
+                animate={isMobileMenuOpen ? { rotate: -45, y: -4 } : { rotate: 0, y: 0 }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+              />
+            </svg>
+          </button>
+        </div>
       </header>
+
+      {/* Mobile Menu Fullscreen Drawer Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-40 bg-[#00272B] text-white flex flex-col justify-between pt-36 pb-12 px-8 overflow-y-auto"
+          >
+            {/* Subtle background abstract shapes */}
+            <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-[#E0FF4F]/5 blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-white/5 blur-3xl pointer-events-none" />
+
+            {/* Menu Links with Typographic Visuals */}
+            <nav className="flex flex-col gap-6 max-w-lg mx-auto w-full select-none">
+              {[
+                { label: 'Work', href: '#work', num: '01' },
+                { label: 'The Duo', href: '#about', num: '02' },
+                { label: 'Capabilities', href: '#capabilities', num: '03' },
+                { label: 'Process', href: '#process', num: '04' },
+                { label: 'Contact', href: '#contact', num: '05' },
+              ].map((item, index) => (
+                <motion.a
+                  key={item.href}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 + 0.1, duration: 0.3 }}
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="group flex items-baseline gap-4 border-b border-white/10 pb-4 text-white hover:text-[#E0FF4F] transition-colors duration-300"
+                >
+                  <span className="font-mono text-xs text-white/40 group-hover:text-[#E0FF4F]/60 transition-colors">
+                    {item.num}
+                  </span>
+                  <span className="font-heading font-black text-3xl uppercase tracking-wide">
+                    {item.label}
+                  </span>
+                  <span className="ml-auto opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-300 text-xl text-[#E0FF4F]">
+                    →
+                  </span>
+                </motion.a>
+              ))}
+            </nav>
+
+            {/* Mobile Footer Area inside Drawer */}
+            <div className="flex flex-col items-center gap-6 max-w-lg mx-auto w-full border-t border-white/10 pt-8 mt-12">
+              <a
+                href="mailto:mailforservices8055@gmail.com"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-full py-4 text-center rounded-xl bg-[#E0FF4F] text-[#00272B] hover:bg-white hover:scale-[1.01] transition-all duration-300 font-mono text-xs uppercase tracking-wider font-extrabold shadow-lg"
+              >
+                Start A Project
+              </a>
+              
+              <div className="flex items-center gap-2.5">
+                <span className="text-[10px] tracking-widest text-white/50 uppercase font-semibold">
+                  DESIGN MEETS ENGINEERING
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E0FF4F]" />
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* 2. HERO SECTION */}
       <section id="hero" className="relative min-h-screen w-full flex items-center pt-32 md:pt-40 pb-20 px-6 md:px-[6vw] overflow-hidden">
@@ -291,7 +419,7 @@ export default function PremiumFreelanceLandingPage() {
             maxWidth: aboutScrollProgress >= 0.98 ? '100%' : `${1024 + (aboutScrollProgress * 500)}px`,
             borderRadius: `${Math.max(0, (1 - aboutScrollProgress) * 48)}px`,
           }}
-          className="bg-[#00272B] text-white shadow-2xl relative overflow-hidden transition-all duration-200 ease-out py-24 md:py-32 px-8 md:px-[6vw]"
+          className="bg-[#00272B] text-white shadow-2xl relative overflow-hidden transition-all duration-200 ease-out py-16 md:py-32 px-5 md:px-[6vw]"
         >
           <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
@@ -474,7 +602,7 @@ export default function PremiumFreelanceLandingPage() {
             maxWidth: scrollProgress >= 0.98 ? '100%' : `${1024 + (scrollProgress * 500)}px`,
             borderRadius: `${Math.max(0, (1 - scrollProgress) * 48)}px`,
           }}
-          className="bg-[#00272B] text-white shadow-2xl relative overflow-hidden transition-all duration-200 ease-out py-20 md:py-32 px-8 md:px-16"
+          className="bg-[#00272B] text-white shadow-2xl relative overflow-hidden transition-all duration-200 ease-out py-16 md:py-32 px-5 md:px-16"
         >
           {/* Subtle background abstract circle */}
           <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-[#E0FF4F]/5 blur-3xl pointer-events-none" />
@@ -493,7 +621,7 @@ export default function PremiumFreelanceLandingPage() {
             <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
               <a 
                 href="mailto:mailforservices8055@gmail.com"
-                className="px-8 py-4 rounded-full bg-[#E0FF4F] text-[#00272B] hover:bg-white hover:text-[#00272B] hover:scale-105 transition-all duration-300 font-mono text-xs uppercase tracking-wider font-bold shadow-lg"
+                className="px-4 py-3.5 sm:px-8 sm:py-4 rounded-full bg-[#E0FF4F] text-[#00272B] hover:bg-white hover:text-[#00272B] hover:scale-105 transition-all duration-300 font-mono text-[10px] sm:text-xs uppercase tracking-wider font-bold shadow-lg break-all"
               >
                 mailforservices8055@gmail.com
               </a>
