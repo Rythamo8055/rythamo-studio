@@ -6,12 +6,14 @@ import Cubes from '../components/Cubes/Cubes';
 import MagnetLines from '../components/MagnetLines/MagnetLines';
 import { Marquee } from '../components/ui/marquee';
 import { motion, AnimatePresence } from 'framer-motion';
+import Preloader from '../components/Preloader';
 
 export default function PremiumFreelanceLandingPage() {
   const [activeTab, setActiveTab] = useState('all');
   const [scrollProgress, setScrollProgress] = useState(0);
   const [aboutScrollProgress, setAboutScrollProgress] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -110,6 +112,9 @@ export default function PremiumFreelanceLandingPage() {
 
   return (
     <div className="relative min-h-screen bg-white text-[#00272B] selection:bg-[#E0FF4F] selection:text-[#00272B] overflow-x-hidden font-sans">
+      
+      {/* Premium GSAP Preloader */}
+      {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
       
       {/* 1. UPGRADED MODULAR AWWWARDS-STYLE NAV BAR */}
       <header className="fixed top-6 left-1/2 -translate-x-1/2 w-[92%] max-w-7xl z-50 rounded-2xl p-1.5 bg-[#00272B]/95 backdrop-blur-xl border border-white/10 flex items-center justify-between shadow-[0_20px_50px_rgba(0,39,43,0.15)] transition-all duration-300">
