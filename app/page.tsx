@@ -7,6 +7,7 @@ import MagnetLines from '../components/MagnetLines/MagnetLines';
 import { Marquee } from '../components/ui/marquee';
 import { motion, AnimatePresence } from 'framer-motion';
 import Preloader from '../components/Preloader';
+import { SlideTabs } from '../components/ui/slide-tabs';
 
 export default function PremiumFreelanceLandingPage() {
   const [activeTab, setActiveTab] = useState('all');
@@ -139,32 +140,9 @@ export default function PremiumFreelanceLandingPage() {
           </span>
         </a>
         
-        {/* Middle: Modular Capsule Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest font-bold">
-          <a 
-            href="#work" 
-            className="px-4.5 py-2.5 rounded-xl border border-white/5 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/10 hover:text-[#E0FF4F] transition-all duration-300"
-          >
-            Work
-          </a>
-          <a 
-            href="#about" 
-            className="px-4.5 py-2.5 rounded-xl border border-white/5 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/10 hover:text-[#E0FF4F] transition-all duration-300"
-          >
-            The Duo
-          </a>
-          <a 
-            href="#capabilities" 
-            className="px-4.5 py-2.5 rounded-xl border border-white/5 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/10 hover:text-[#E0FF4F] transition-all duration-300"
-          >
-            Capabilities
-          </a>
-          <a 
-            href="#process" 
-            className="px-4.5 py-2.5 rounded-xl border border-white/5 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/10 hover:text-[#E0FF4F] transition-all duration-300"
-          >
-            Process
-          </a>
+        {/* Middle: Modular Sliding Tab Links */}
+        <nav className="hidden md:block">
+          <SlideTabs />
         </nav>
         
         {/* Right Side: Responsive CTA and Mobile Toggle Container */}
