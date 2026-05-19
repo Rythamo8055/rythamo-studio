@@ -121,11 +121,11 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white select-none overflow-hidden"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#E0FF4F] select-none overflow-hidden"
     >
       <div className="relative flex flex-col items-center z-10">
         
-        {/* Core Animated Vector SVG Logo (Exact original color configurations) */}
+        {/* Core Animated Vector SVG Logo (Midnight Forest outlines over Electric Neon Lime) */}
         <svg
           width="120"
           height="120"
@@ -144,7 +144,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
             strokeLinecap="round"
           />
           
-          {/* Engineering: The sharp tech square in Neon Lime */}
+          {/* Engineering: The sharp tech square in Midnight Forest */}
           <rect
             ref={logoSquareRef}
             x="44"
@@ -152,7 +152,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
             width="28"
             height="28"
             rx="4"
-            stroke="#E0FF4F"
+            stroke="#00272B"
             strokeWidth="7"
             strokeLinejoin="round"
           />
@@ -171,13 +171,13 @@ export default function Preloader({ onComplete }: PreloaderProps) {
             strokeDasharray="12 12"
           />
           
-          {/* Intersection Core Dot */}
+          {/* Intersection Core Dot (White spotlight on dark structure) */}
           <circle
             ref={logoDotRef}
             cx="50"
             cy="50"
             r="4.5"
-            fill="#E0FF4F"
+            fill="#FFFFFF"
             stroke="#00272B"
             strokeWidth="2"
           />
@@ -190,11 +190,11 @@ export default function Preloader({ onComplete }: PreloaderProps) {
           className="mt-6 font-heading font-black text-base text-[#00272B] tracking-[0.25em] uppercase flex items-center"
         >
           <span>RYTHAMO</span>
-          <span className="text-[#E0FF4F] font-bold ml-2">STUDIO</span>
+          <span className="text-[#00272B] font-light ml-2">STUDIO</span>
         </div>
 
         {/* Incrementing percentage indicator */}
-        <div className="mt-8 font-mono text-[10px] text-[#00272B]/40 tracking-[0.3em] uppercase flex items-center gap-2">
+        <div className="mt-8 font-mono text-[10px] text-[#00272B]/60 tracking-[0.3em] uppercase flex items-center gap-2">
           <span>CREATING</span>
           <span className="font-bold w-8 text-right text-[#00272B]">
             {progress}%
