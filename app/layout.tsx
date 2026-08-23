@@ -17,11 +17,11 @@ export const metadata: Metadata = {
   keywords: ["Rythamo", "Rythamo Studio", "design", "engineering", "digital products", "web development"],
   authors: [{ name: "Rythamo" }],
   creator: "Rythamo",
-  metadataBase: new URL("https://rythamo-studio.vercel.app"),
+  metadataBase: new URL("https://rythamofreelance.vercel.app"),
   openGraph: {
     title: "Rythamo Studio | Bespoke Design & Engineering",
     description: "Ultra-premium, high-converting digital products combining Swiss typographic design with flawless engineering.",
-    url: "https://rythamo-studio.vercel.app",
+    url: "https://rythamofreelance.vercel.app",
     siteName: "Rythamo Studio",
     type: "website",
   },
