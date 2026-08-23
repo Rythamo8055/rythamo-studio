@@ -31,6 +31,9 @@ export const metadata: Metadata = {
     description: "Ultra-premium, high-converting digital products combining Swiss typographic design with flawless engineering.",
     creator: "@Rythamo8055",
   },
+  other: {
+    "google-site-verification": "zOOj--hb4C2SawK-7BPeqrCavYMLjEHaIXc7wpvULZ8",
+  },
   icons: {
     icon: "/logo.svg",
   },
